@@ -14,7 +14,6 @@ const paths = require('./paths');
 const ManifestPlugin = require('webpack-manifest-plugin');
 const ModuleNotFoundPlugin = require('react-dev-utils/ModuleNotFoundPlugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
-const typescriptFormatter = require('react-dev-utils/typescriptFormatter');
 
 
 // Webpack uses `publicPath` to determine where the app is being served from.
@@ -230,7 +229,7 @@ module.exports = {
             loader: require.resolve('babel-loader'),
             options: {
               customize: require.resolve(
-                'babel-preset-react-app/webpack-overrides'
+                'babel-preset-react-app-webpack-5/webpack-overrides'
               ),
               
               plugins: [
@@ -265,7 +264,7 @@ module.exports = {
               compact: false,
               presets: [
                 [
-                  require.resolve('babel-preset-react-app/dependencies'),
+                  require.resolve('babel-preset-react-app-webpack-5/dependencies'),
                   { helpers: true }
                 ],
               ],
@@ -410,7 +409,6 @@ module.exports = {
         ],
         watch: paths.appSrc,
         silent: true,
-        formatter: typescriptFormatter,
       }),
   ].filter(Boolean),
 

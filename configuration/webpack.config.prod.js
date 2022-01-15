@@ -7,9 +7,9 @@ const resolve = require('resolve');
 const PnpWebpackPlugin = require('pnp-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const safePostCssParser = require('postcss-safe-parser');
-const ManifestPlugin = require('webpack-manifest-plugin');
+const { WebpackManifestPlugin } = require('webpack-manifest-plugin');
 const WorkboxWebpackPlugin = require('workbox-webpack-plugin');
 const ModuleScopePlugin = require('react-dev-utils/ModuleScopePlugin');
 const getCSSModuleLocalIdent = require('react-dev-utils/getCSSModuleLocalIdent');
@@ -17,7 +17,6 @@ const paths = require('./paths');
 const getClientEnvironment = require('./env');
 const ModuleNotFoundPlugin = require('react-dev-utils/ModuleNotFoundPlugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
-const typescriptFormatter = require('react-dev-utils/typescriptFormatter');
 
 
 // Webpack uses `publicPath` to determine where the app is being served from.
@@ -166,21 +165,13 @@ module.exports = {
           },
         },
       }),
-      new OptimizeCSSAssetsPlugin({
-        cssProcessorOptions: {
-          parser: safePostCssParser,
-          map: shouldUseSourceMap
-            ? {
-                // `inline: false` forces the sourcemap to be output into a
-                // separate file
-                inline: false,
-                // `annotation: true` appends the sourceMappingURL to the end of
-                // the css file, helping the browser find the sourcemap
-                annotation: true,
-              }
-            : false,
-        },
-      }),
+      new CssMinimizerPlugin({
+          minimizerOptions: {
+            procesorOptions: {
+              parser: safePostCssParser,
+            }
+          }
+        }),
     ],
  
     // Keep the runtime chunk seperated to enable long term caching
@@ -231,6 +222,13 @@ module.exports = {
       // Make sure your source files are compiled, as they will not be processed in any way.
       new ModuleScopePlugin(paths.appSrc, [paths.appPackageJson]),
     ],
+    fallback: {
+      fs: false,
+      dgram: false,
+      net: false,
+      tls: false,
+      child_process: false,
+    }
   },
   resolveLoader: {
     plugins: [
@@ -279,7 +277,12 @@ module.exports = {
             
           },
           {
-            test: /\.ttf$/, loader: 'file-loader?prefix=fonts/'
+            test: /\.ttf$/, 
+            use: [
+              {
+                loader: 'file-loader?prefix=fonts/'
+              }
+            ]
           },
           // Process application JS with Babel.
           // The preset includes JSX, Flow, TypeScript and some ESnext features.
@@ -290,9 +293,13 @@ module.exports = {
             loader: require.resolve('babel-loader'),
             options: {
               customize: require.resolve(
-                'babel-preset-react-app/webpack-overrides'
+                'babel-preset-react-app-webpack-5/webpack-overrides'
               ),
-              
+              presets: [
+                [
+                  require.resolve('babel-preset-react-app-webpack-5'),
+                ],
+              ],
               plugins: [
                 [
                   require.resolve('babel-plugin-named-asset-import'),
@@ -323,7 +330,7 @@ module.exports = {
               compact: false,
               presets: [
                 [
-                  require.resolve('babel-preset-react-app/dependencies'),
+                  require.resolve('babel-preset-react-app-webpack-5/dependencies'),
                   { helpers: true },
                 ],
               ],
@@ -441,7 +448,7 @@ module.exports = {
     // Generate a manifest file which contains a mapping of all asset filenames
     // to their corresponding output file so that tools can pick it up without
     // having to parse `index.html`.
-    new ManifestPlugin({
+    new WebpackManifestPlugin({
       fileName: 'asset-manifest.json',
       publicPath: publicPath,
     }),
@@ -496,18 +503,8 @@ module.exports = {
         ],
         watch: paths.appSrc,
         silent: true,
-        formatter: typescriptFormatter,
       }),
   ].filter(Boolean),
-  // Some libraries import Node modules but don't use them in the browser.
-  // Tell Webpack to provide empty mocks for them so importing them works.
-  node: {
-    dgram: 'empty',
-    fs: 'empty',
-    net: 'empty',
-    tls: 'empty',
-    child_process: 'empty',
-  },
   // Turn off performance processing because we utilize
   // our own hints via the FileSizeReporter
   performance: false,

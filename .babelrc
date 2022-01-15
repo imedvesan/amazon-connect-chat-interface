@@ -1,8 +1,16 @@
 {
   "plugins": [
-    "emotion"
+    "emotion",
+    [
+      "@babel/plugin-transform-runtime",
+      {
+        "regenerator": true,
+        "absoluteRuntime": false
+      }
+    ]
   ],
   "presets": [
-    "react-app"
+    "@babel/preset-env",
+    "@babel/preset-react"
   ]
 }
