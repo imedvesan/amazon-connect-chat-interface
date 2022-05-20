@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
 
-import React, { useState, useLayoutEffect, useRef, useCallback } from "react";
+import React, { useState, useLayoutEffect, useRef, useMemo } from "react";
 import styled from "styled-components";
 import throttle from "lodash/throttle";
 import PT from "prop-types";
@@ -169,7 +169,7 @@ export default function ChatComposer({ addMessage, addAttachment, onTyping, cont
       return;
     }
     textInputRef.current.focus();
-  }, [attachment]);
+  }, [attachment, textInputRef]);
 
   function hasSameContent(event) {
     return event.target.innerText === message;
@@ -211,13 +211,13 @@ export default function ChatComposer({ addMessage, addAttachment, onTyping, cont
     }
   }
 
-  const throttledOnTyping = useCallback(
-      throttle(() => {
-        onTyping().then(() => {
-          console.log("CCP", "ChatComposer", "On typing event sent successfully");
-        });
-      }, onTypingValidityTime),
-      [onTypingValidityTime]
+  const throttledOnTyping = useMemo(
+    () => throttle(() => {
+      onTyping().then(() => {
+        console.log("CCP", "ChatComposer", "On typing event sent successfully");
+      });
+    }, onTypingValidityTime),
+    [onTyping, onTypingValidityTime]
   );
 
   function sendTextMessage(text) {

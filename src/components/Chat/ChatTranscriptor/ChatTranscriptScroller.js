@@ -70,28 +70,29 @@ export default function ChatTranscriptScroller({
   const maxScrollTop = () =>
     ref.current.scrollHeight - ref.current.clientHeight;
 
-  const preLoadingScrollTop = () =>
-    ref.current.scrollHeight - loadingScrollPos;
-
-  const shouldScrollToBottom = () =>
-    // Scroll down if we are either locked to bottom or have sent a new message
-    lockedToBottom || lastSentMessageId !== prevLastSentMessageId;
-
-  const shouldRestorePreLoadingScrollTop = () =>
-    children !== prevChildren && loading && loadingScrollPos;
-
   useEffect(() => {
+    const preLoadingScrollTop = () =>
+        ref.current.scrollHeight - loadingScrollPos;
+ 
+    const shouldScrollToBottom = () =>
+        // Scroll down if we are either locked to bottom or have sent a new message
+        lockedToBottom || lastSentMessageId !== prevLastSentMessageId;
+ 
+    const shouldRestorePreLoadingScrollTop = () =>
+        children !== prevChildren && loading && loadingScrollPos;
+ 
     const scrollTop = contactScrollStore[contactId];
+    const refCurrent = ref.current;
     if (isValidScrollTop(scrollTop)) {
-      ref.current.scrollTop = scrollTop < 0 ? maxScrollTop() : scrollTop;
+      refCurrent.scrollTop = scrollTop < 0 ? maxScrollTop() : scrollTop;
       setContactScrollStore(contactScrollStore => ({...contactScrollStore, [contactId]: undefined}));
     } else if (shouldScrollToBottom()) {
-      ref.current.scrollTop = maxScrollTop();
+      refCurrent.scrollTop = maxScrollTop();
     } else if (shouldRestorePreLoadingScrollTop()) {
-      ref.current.scrollTop = preLoadingScrollTop();
+      refCurrent.scrollTop = preLoadingScrollTop();
       setLoadingScrollPos(null);
     }
-  });
+  }, [contactScrollStore, contactId, loadingScrollPos, lockedToBottom, lastSentMessageId, prevLastSentMessageId, children, prevChildren, loading]);
 
   useEffect(() => {
     // When loading has started, we store the scroll position from bottom
@@ -101,10 +102,11 @@ export default function ChatTranscriptScroller({
   }, [loading]);
 
   useEffect(() => {
+    const refCurrent = ref.current;
     return () => {
       // When leaving a tab, we store scroll position or -1 if scrolled all the way down
-      const scrolledToBottom = maxScrollTop() <= ref.current.scrollTop + SCROLL_BOTTOM_MARGIN;
-      const scrollTop = scrolledToBottom ? -1 : ref.current.scrollTop;
+      const scrolledToBottom = maxScrollTop() <= refCurrent.scrollTop + SCROLL_BOTTOM_MARGIN;
+      const scrollTop = scrolledToBottom ? -1 : refCurrent.scrollTop;
       setContactScrollStore(contactScrollStore => ({...contactScrollStore, [contactId]: scrollTop}));
     };
   }, [contactId]);

@@ -16,8 +16,7 @@ const getCSSModuleLocalIdent = require('react-dev-utils/getCSSModuleLocalIdent')
 const paths = require('./paths');
 const getClientEnvironment = require('./env');
 const ModuleNotFoundPlugin = require('react-dev-utils/ModuleNotFoundPlugin');
-const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
-const typescriptFormatter = require('react-dev-utils/typescriptFormatter');
+const ForkTsCheckerWebpackPlugin = require('react-dev-utils/ForkTsCheckerWebpackPlugin');
 
 
 // Webpack uses `publicPath` to determine where the app is being served from.
@@ -495,8 +494,7 @@ module.exports = {
           '!src/setupTests.*',
         ],
         watch: paths.appSrc,
-        silent: true,
-        formatter: typescriptFormatter,
+        silent: true
       }),
   ].filter(Boolean),
   // Some libraries import Node modules but don't use them in the browser.
