@@ -12,9 +12,13 @@ import SendMessageButton from './SendMessageButton';
 import { ATTACHMENT_ACCEPT_CONTENT_TYPES } from "../datamodel/Model";
 
 const ChatComposerWrapper = styled.div`
+  margin: 0;
+  padding: 0;
+`;
+
+const DefaultChatComposerWrapper = styled.div`
   position: relative;
   display: flex;
-  order: 3;
   background: ${props => props.theme.palette.white};
   border: 0.5px solid ${props => props.theme.palette.lightGray};
   border-left: 0;
@@ -28,6 +32,7 @@ const SendMessageButtonContainer = styled.div`
   top: 0;
   right: 0;
   z-index: 2;
+  font-size: 1rem !important;
 `;
 
 const PaperClipContainer = styled.div`
@@ -140,8 +145,8 @@ const CloseIcon = styled.div`
   display: flex;
   font-size: 0;
   svg {
-    width: ${({theme}) => theme.fontsSize.mini};
-	height: ${({theme}) => theme.fontsSize.mini};
+    width: ${({ theme }) => theme.fontsSize.mini};
+	height: ${({ theme }) => theme.fontsSize.mini};
   }
 `;
 
@@ -161,7 +166,7 @@ ChatComposer.defaultProps = {
 
 export default function ChatComposer({ addMessage, addAttachment, onTyping, contactId, contactStatus, onTypingValidityTime, textInputRef, composerConfig }) {
   let logger;
-  if(window.connect && window.connect.LogManager) {
+  if (window.connect && window.connect.LogManager) {
     logger = window.connect.LogManager.getLogger({ prefix: "ChatInterface-ChatComposer" })
   }
   const [message, setMessage] = useState("");
@@ -220,12 +225,12 @@ export default function ChatComposer({ addMessage, addAttachment, onTyping, cont
   }
 
   const throttledOnTyping = useCallback(
-      throttle(() => {
-        onTyping().then(() => {
-          console.log("On typing event");
-        });
-      }, onTypingValidityTime),
-      [onTypingValidityTime]
+    throttle(() => {
+      onTyping().then(() => {
+        console.log("On typing event");
+      });
+    }, onTypingValidityTime),
+    [onTypingValidityTime]
   );
 
   function sendTextMessage(text) {
@@ -254,59 +259,71 @@ export default function ChatComposer({ addMessage, addAttachment, onTyping, cont
   const placeholder = attachment == null ? ariaLabel : "";
 
   return (
-      <ChatComposerWrapper>
+    <ChatComposerWrapper>
+      <DefaultChatComposerWrapper>
         {(contactStatus === CONTACT_STATUS.CONNECTED) && (
-            <React.Fragment>
-              {composerConfig.attachmentsEnabled &&
-              <PaperClipContainer>
+          <React.Fragment>
+            {composerConfig.attachmentsEnabled &&
+              <PaperClipContainer
+                tabIndex={0} 
+                data-testid="customer-chat-attachment-icon"
+                onKeyDown={(e) => {
+                  // if space or enter is pressed
+                  if (e.key === KEYBOARD_KEY_CONSTANTS.SPACE || e.key === KEYBOARD_KEY_CONSTANTS.ENTER) {
+                    e.preventDefault();
+                    document.getElementById(`customer-chat-file-select-${contactId}`).click();
+                  }
+                }}
+                >
                 <IconButton aria-label={"Attach a file"}>
                   <label htmlFor={`customer-chat-file-select-${contactId}`}>
                     <PaperClipIcon>
                       <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
-                        <path d="M0 0h24v24H0z" fill="none"/>
-                        <path d="M16.5 6v11.5c0 2.21-1.79 4-4 4s-4-1.79-4-4V5c0-1.38 1.12-2.5 2.5-2.5s2.5 1.12 2.5 2.5v10.5c0 .55-.45 1-1 1s-1-.45-1-1V6H10v9.5c0 1.38 1.12 2.5 2.5 2.5s2.5-1.12 2.5-2.5V5c0-2.21-1.79-4-4-4S7 2.79 7 5v12.5c0 3.04 2.46 5.5 5.5 5.5s5.5-2.46 5.5-5.5V6h-1.5z"/>
+                        <path d="M0 0h24v24H0z" fill="none" />
+                        <path d="M16.5 6v11.5c0 2.21-1.79 4-4 4s-4-1.79-4-4V5c0-1.38 1.12-2.5 2.5-2.5s2.5 1.12 2.5 2.5v10.5c0 .55-.45 1-1 1s-1-.45-1-1V6H10v9.5c0 1.38 1.12 2.5 2.5 2.5s2.5-1.12 2.5-2.5V5c0-2.21-1.79-4-4-4S7 2.79 7 5v12.5c0 3.04 2.46 5.5 5.5 5.5s5.5-2.46 5.5-5.5V6h-1.5z" />
                       </svg>
                     </PaperClipIcon>
                     <input ref={fileInputRef} type="file" id={`customer-chat-file-select-${contactId}`} data-testid={`customer-chat-file-select`}
-                           accept={ATTACHMENT_ACCEPT_CONTENT_TYPES.join(',')}
-                           onChange={onFileInput} aria-label={"Attach a file"} tabIndex={-1}/>
+                      accept={ATTACHMENT_ACCEPT_CONTENT_TYPES.join(',')}
+                      onChange={onFileInput} aria-label={"Attach a file"} tabIndex={-1} />
                   </label>
                 </IconButton>
               </PaperClipContainer>}
-              {(attachment != null) && (
-                  <AttachmentContainer>
-                    <div>
-                      <span>{attachment.name}</span>
-                      <IconButton onClick={clearFileInput} aria-label={"Remove attachment"}>
-                        <CloseIcon>
-                          <svg viewBox="0 0 13 13" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
-                            <path d="M13 1.3L11.7 0 6.5 5.2 1.3 0 0 1.3l5.2 5.2L0 11.7 1.3 13l5.2-5.2 5.2 5.2 1.3-1.3-5.2-5.2z" fillRule="evenodd"/>
-                          </svg>
-                        </CloseIcon>
-                      </IconButton>
-                    </div>
-                  </AttachmentContainer>
-              )}
-              <TextInput
-                  data-testid={`customer-chat-text-input`}
-                  ref={textInputRef}
-                  value={message}
-                  onInput={onInput}
-                  onKeyPress={onInput}
-                  onKeyDown={onInput}
-                  aria-label={ariaLabel}
-                  placeholder={placeholder}
-                  tabIndex="0"
-                  spellCheck="true"
+            {(attachment != null) && (
+              <AttachmentContainer>
+                <div>
+                  <span>{attachment.name}</span>
+                  <IconButton onClick={clearFileInput} aria-label={"Remove attachment"}>
+                    <CloseIcon>
+                      <svg viewBox="0 0 13 13" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
+                        <path d="M13 1.3L11.7 0 6.5 5.2 1.3 0 0 1.3l5.2 5.2L0 11.7 1.3 13l5.2-5.2 5.2 5.2 1.3-1.3-5.2-5.2z" fillRule="evenodd" />
+                      </svg>
+                    </CloseIcon>
+                  </IconButton>
+                </div>
+              </AttachmentContainer>
+            )}
+            <TextInput
+              data-testid={`customer-chat-text-input`}
+              ref={textInputRef}
+              value={message}
+              onInput={onInput}
+              onKeyPress={onInput}
+              onKeyDown={onInput}
+              aria-label={ariaLabel}
+              placeholder={placeholder}
+              tabIndex="0"
+              spellCheck="true"
+            />
+            <SendMessageButtonContainer>
+              <SendMessageButton
+                isActive={!!message || attachment}
+                sendMessage={sendMessage.bind(this)}
               />
-              <SendMessageButtonContainer>
-                <SendMessageButton
-                  isActive={!!message || attachment}
-                  sendMessage={sendMessage.bind(this)}
-                />
-              </SendMessageButtonContainer>
-            </React.Fragment>
+            </SendMessageButtonContainer>
+          </React.Fragment>
         )}
-      </ChatComposerWrapper>
+      </DefaultChatComposerWrapper>
+    </ChatComposerWrapper>
   );
 }
