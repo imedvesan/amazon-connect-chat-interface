@@ -8,6 +8,7 @@ import { InteractiveMessageType } from "../../datamodel/Model";
 import ListPicker from "./InteractiveMessages/ListPicker";
 import Panel from "./InteractiveMessages/Panel";
 import TimePicker from "./InteractiveMessages/TimePicker";
+import ImageWithButton from "./InteractiveMessages/ImageWithButton";
 import styled from "styled-components";
  
 //#region Styled Components
@@ -73,6 +74,8 @@ export function InteractiveMessage({ content, templateType, addMessage }) {
       return <Panel content={content} addMessage={onAddMessage}/>
     } else if (templateType === InteractiveMessageType.TIME_PICKER) {
       return <TimePicker content={content} addMessage={onAddMessage}/>
+    } else if (templateType === InteractiveMessageType.IMAGE_WITH_BUTTON) {
+      return <ImageWithButton content={content} addMessage={onAddMessage}/>
     }
   }
  

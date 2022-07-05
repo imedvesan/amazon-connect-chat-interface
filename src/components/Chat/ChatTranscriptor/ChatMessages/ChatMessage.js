@@ -5,7 +5,7 @@ import React, { PureComponent } from "react";
 import styled from "styled-components";
 import PT from "prop-types";
 import Linkify from "react-linkify";
-import { ATTACHMENT_MESSAGE, AttachmentStatus, ContentType, Status, Direction } from "../../datamodel/Model";
+import { ATTACHMENT_MESSAGE, AttachmentStatus, ContentType, Status, Direction, InteractiveMessageType } from "../../datamodel/Model";
 import { Icon, TypingLoader } from "connect-core";
 import { InteractiveMessage } from "./InteractiveMessage";
 
@@ -212,7 +212,20 @@ export class ParticipantMessage extends PureComponent {
                                    textInputRef={this.props.textInputRef}/>
       }
       textContent = data.content.title;
-    }
+    } else {
+      try {
+        const {data, templateType} = JSON.parse(content);
+        if (templateType == InteractiveMessageType.IMAGE_WITH_BUTTON) {
+          console.log("Found Image with Button Message");
+          return <InteractiveMessage content={data.content} templateType={templateType}
+                                     addMessage={this.props.mediaOperations.addMessage}
+                                     textInputRef={this.props.textInputRef}/>
+        }
+      } catch (e) {
+        console.debug(e, content);
+      }
+      }
+      console.log("Showing as plain text");
     return <PlainTextMessage content={textContent}/>;
   }
 

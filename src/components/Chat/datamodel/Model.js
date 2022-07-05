@@ -67,7 +67,8 @@ export const ATTACHMENT_ACCEPT_CONTENT_TYPES = [
 export const InteractiveMessageType = {
     LIST_PICKER: "ListPicker",
     TIME_PICKER: "TimePicker",
-    PANEL: "Panel"
+    PANEL: "Panel",
+    IMAGE_WITH_BUTTON: "ImageWithButton"
 };
 
 export const Status = {

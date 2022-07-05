@@ -6,7 +6,6 @@ const resolve = require('resolve');
 const webpack = require('webpack');
 const PnpWebpackPlugin = require('pnp-webpack-plugin');
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
-const WatchMissingNodeModulesPlugin = require('react-dev-utils/WatchMissingNodeModulesPlugin');
 const ModuleScopePlugin = require('react-dev-utils/ModuleScopePlugin');
 const getCSSModuleLocalIdent = require('react-dev-utils/getCSSModuleLocalIdent');
 const getClientEnvironment = require('./env');
@@ -366,7 +365,7 @@ module.exports = {
     // to restart the development server for Webpack to discover it. This plugin
     // makes the discovery automatic so you don't have to restart.
     // See https://github.com/facebook/create-react-app/issues/186
-    new WatchMissingNodeModulesPlugin(paths.appNodeModules),
+    // new WatchMissingNodeModulesPlugin(paths.appNodeModules),
     // Moment.js is an extremely popular library that bundles large locale files
     // by default due to how Webpack interprets its code. This is a practical
     // solution that requires the user to opt into importing specific locales.
