@@ -59,7 +59,6 @@ ImageWithButton.propTypes = {
 };
  
 export default function ImageWithButton({ content, addMessage }) {
-    console.error(content);
   // assumptions: version 1, image data is URL. Guarenteed title exists, at least 1 element.
   const { title, subtitle, elements, imageData, imageDescription } = content;
   const [ imageLoaded, setImageLoaded ] = useState(false);
@@ -72,8 +71,6 @@ export default function ImageWithButton({ content, addMessage }) {
     addMessage({ text: e.currentTarget.value });
   }
  
-  console.log("Inside ImageWithButton");
-
   return (
     <>
       {(imageData) &&
@@ -81,7 +78,7 @@ export default function ImageWithButton({ content, addMessage }) {
         <ReactiveImage imageSrc={imageData} imageDescription={imageDescription} onImageLoad={onImageLoad}/>
       </ImageContainer>
       }      
-      
+
       <TextSection>
       <Title>{title}</Title>
       {subtitle && <Subtitle>{subtitle}</Subtitle>}

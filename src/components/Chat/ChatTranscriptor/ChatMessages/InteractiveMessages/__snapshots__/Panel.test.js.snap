@@ -231,52 +231,52 @@ Object {
   </body>,
   "container": <div>
     <div
-      class="sc-iRbamj jrMTlI"
+      class="sc-gipzik inmHgs"
     >
       <img
         alt="PanelImageDescription"
-        class="sc-cMljjf dqMdBl"
+        class="sc-jDwBTQ kLyVEB"
         src="PanelImageData"
       />
     </div>
     <div
-      class="sc-jAaTju ldErGV"
+      class="sc-gPEVay cvdMJf"
     >
       <p
-        class="sc-bZQynM fraGhu sc-jWBwVP NljNK"
+        class="sc-bZQynM fraGhu sc-cMljjf gJcoJE"
       >
         PanelTitle
       </p>
       <p
-        class="sc-bZQynM fraGhu sc-brqgnP dLoklq"
+        class="sc-bZQynM fraGhu sc-jAaTju bgMIgD"
       >
         PanelSubTitle
       </p>
     </div>
     <div
-      class="sc-jDwBTQ cICqDD"
+      class="sc-iRbamj hDHmAu"
     >
       <div>
         <button
-          class="sc-gzVnrw fgSGc sc-jlyJG jWSCXn"
+          class="sc-gzVnrw fgSGc sc-csuQGl jpmnxY"
           data-selected="false"
           type="default"
           value="PanelElementTitle"
         >
           <p
-            class="sc-bZQynM fraGhu sc-gPEVay jLVYop"
+            class="sc-bZQynM fraGhu sc-jlyJG cLlPFd"
           >
             PanelElementTitle
           </p>
         </button>
         <button
-          class="sc-gzVnrw fgSGc sc-jlyJG jWSCXn"
+          class="sc-gzVnrw fgSGc sc-csuQGl jpmnxY"
           data-selected="false"
           type="default"
           value="AnotherPanelElementTitle"
         >
           <p
-            class="sc-bZQynM fraGhu sc-gPEVay jLVYop"
+            class="sc-bZQynM fraGhu sc-jlyJG cLlPFd"
           >
             AnotherPanelElementTitle
           </p>

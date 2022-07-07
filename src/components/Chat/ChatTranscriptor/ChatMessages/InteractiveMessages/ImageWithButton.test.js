@@ -8,40 +8,40 @@ import { ThemeProvider } from "../../../../../theme";
 import ImageWithButton from "./ImageWithButton";
  
 const mockImageWithButtonContent = {
-    title: "ListPickerTitle",
-    subtitle: "ListPickerSubTitle",
+    title: "MessageTitle",
+    subtitle: "MessageSubTitle",
     elements: [
         {
-            title: "ListPickerElementTitle",
+            title: "Button1Title",
         },
         {
-            title: "AnotherListPickerElementTitle",
+            title: "Button2Title",
         }
     ],
-    imageData: "ListPickerImageData",
-    imageDescription: "ListPickerImageDescription"
+    imageData: "ImageData",
+    imageDescription: "ImageDescription"
 };
 
 
 const mockImageWithButtonNoImageContent = {
-    title: "ListPickerTitle",
-    subtitle: "ListPickerSubTitle",
+    title: "MessageTitle",
+    subtitle: "MessageSubTitle",
     elements: [
         {
-            title: "ListPickerElementTitle",
+            title: "Button1Title",
         },
         {
-            title: "AnotherListPickerElementTitle",
+            title: "Button2Title",
         }
     ],
 };
  
 const mockImageWithButtonNoButtonContent = {
-    title: "ListPickerTitle",
-    subtitle: "ListPickerSubTitle",
+    title: "MessageTitle",
+    subtitle: "MessageSubTitle",
     elements: [],
-    imageData: "ListPickerImageData",
-    imageDescription: "ListPickerImageDescription"
+    imageData: "ImageData",
+    imageDescription: "ImageDescription"
 };
 
  
@@ -70,15 +70,15 @@ test("Should be able to use ImageWithButton", () => {
 
     renderElement(mockProps);
  
-    expect(mockImageWithButton.getByText("ListPickerTitle")).toBeDefined();
-    expect(mockImageWithButton.getByText("ImageContainer")).toBeDefined();
+    expect(mockImageWithButton.getByText("MessageTitle")).toBeDefined();
+    expect(mockImageWithButton.getByAltText("ImageDescription")).toBeDefined();
  
-    expect(mockImageWithButton.getByText("ListPickerElementTitle")).toBeDefined();
-    expect(mockImageWithButton.getByText("AnotherListPickerElementTitle")).toBeDefined();
+    expect(mockImageWithButton.getByText("Button1Title")).toBeDefined();
+    expect(mockImageWithButton.getByText("Button2Title")).toBeDefined();
  
-    fireEvent.click(mockImageWithButton.getByText("ListPickerElementTitle"));
+    fireEvent.click(mockImageWithButton.getByText("Button1Title"));
     expect(mockProps.addMessage).toHaveBeenCalledTimes(1);
-    expect(mockProps.addMessage).toHaveBeenCalledWith({text: "ListPickerElementTitle"});
+    expect(mockProps.addMessage).toHaveBeenCalledWith({text: "Button1Title"});
 });
 
 test("should render without image if no image data passed in", () => {
@@ -87,15 +87,15 @@ test("should render without image if no image data passed in", () => {
 
     renderElement(mockProps);
  
-    expect(mockImageWithButton.getByText("ListPickerTitle")).toBeDefined();
-    expect(mockImageWithButton.getByText("ImageContainer")).toBeUndefined();
+    expect(mockImageWithButton.getByText("MessageTitle")).toBeDefined();
+    expect(mockImageWithButton.queryByText("ImageDescription")).toBeNull();
  
-    expect(mockImageWithButton.getByText("ListPickerElementTitle")).toBeDefined();
-    expect(mockImageWithButton.getByText("AnotherListPickerElementTitle")).toBeDefined();
+    expect(mockImageWithButton.getByText("Button1Title")).toBeDefined();
+    expect(mockImageWithButton.getByText("Button2Title")).toBeDefined();
  
-    fireEvent.click(mockImageWithButton.getByText("ListPickerElementTitle"));
+    fireEvent.click(mockImageWithButton.getByText("Button1Title"));
     expect(mockProps.addMessage).toHaveBeenCalledTimes(1);
-    expect(mockProps.addMessage).toHaveBeenCalledWith({text: "ListPickerElementTitle"});
+    expect(mockProps.addMessage).toHaveBeenCalledWith({text: "Button1Title"});
 });
 
 test("should render without buttons if no button elements passed in", () => {
@@ -104,13 +104,9 @@ test("should render without buttons if no button elements passed in", () => {
 
     renderElement(mockProps);
  
-    expect(mockImageWithButton.getByText("ListPickerTitle")).toBeDefined();
-    expect(mockImageWithButton.getByAltText("ListPickerImageDescription")).toDefined();
+    expect(mockImageWithButton.getByText("MessageTitle")).toBeDefined();
+    expect(mockImageWithButton.getByAltText("ImageDescription")).toBeDefined();
  
-    expect(mockImageWithButton.getByText("ListPickerElementTitle")).toBeDefined();
-    expect(mockImageWithButton.getByText("AnotherListPickerElementTitle")).toBeDefined();
- 
-    fireEvent.click(mockImageWithButton.getByText("ListPickerElementTitle"));
-    expect(mockProps.addMessage).toHaveBeenCalledTimes(0);
-    // expect(mockProps.addMessage).toHaveBeenCalledWith({text: "ListPickerElementTitle"});
+    expect(mockImageWithButton.queryByText("Button1Title")).toBeNull();
+    expect(mockImageWithButton.queryByText("Button2Title")).toBeNull();
 });

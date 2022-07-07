@@ -152,7 +152,6 @@ Object {
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
-  width: 100%;
   max-width: none;
   border: 1px solid #DDDDDD;
   white-space: pre-line;
@@ -168,27 +167,15 @@ Object {
   margin-bottom: 0;
 }
 
-.c9 {
-  width: 44px;
-  height: 44px;
-  border: 1px solid #DDDDDD;
-  border-radius: 6px;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-  margin-right: 10px;
-  display: none;
-}
-
 <body>
     <div>
       <div
         class="c0"
       >
         <img
-          alt="ListPickerImageDescription"
+          alt="ImageDescription"
           class="c1"
-          src="ListPickerImageData"
+          src="ImageData"
         />
       </div>
       <div
@@ -197,12 +184,12 @@ Object {
         <p
           class="c3 c4"
         >
-          ListPickerTitle
+          MessageTitle
         </p>
         <p
           class="c3 c5"
         >
-          ListPickerSubTitle
+          MessageSubTitle
         </p>
       </div>
       <div
@@ -213,27 +200,13 @@ Object {
             class="c7 c8"
             data-selected="false"
             type="default"
-            value="ListPickerElementTitle"
+            value="Button1Title"
           >
-            <div
-              class="c9"
-            >
-              <img
-                alt="ListPickerElementImageDescription"
-                class="c1"
-                src="ListPickerElementImageData"
-              />
-            </div>
             <div>
               <p
                 class="c3 c4"
               >
-                ListPickerElementTitle
-              </p>
-              <p
-                class="c3 c5"
-              >
-                ListPickerElementSubtitle
+                Button1Title
               </p>
             </div>
           </button>
@@ -241,27 +214,13 @@ Object {
             class="c7 c8"
             data-selected="false"
             type="default"
-            value="AnotherListPickerElementTitle"
+            value="Button2Title"
           >
-            <div
-              class="c9"
-            >
-              <img
-                alt="AnotherListPickerElementImageDescription"
-                class="c1"
-                src="AnotherListPickerElementImageData"
-              />
-            </div>
             <div>
               <p
                 class="c3 c4"
               >
-                AnotherListPickerElementTitle
-              </p>
-              <p
-                class="c3 c5"
-              >
-                AnotherListPickerElementSubtitle
+                Button2Title
               </p>
             </div>
           </button>
@@ -271,85 +230,57 @@ Object {
   </body>,
   "container": <div>
     <div
-      class="sc-jlyJG jcqFXd"
+      class="sc-gipzik inmHgs"
     >
       <img
-        alt="ListPickerImageDescription"
-        class="sc-jDwBTQ kLyVEB"
-        src="ListPickerImageData"
+        alt="ImageDescription"
+        class="sc-gPEVay cbWEyG"
+        src="ImageData"
       />
     </div>
     <div
-      class="sc-gPEVay cvdMJf"
+      class="sc-iRbamj hpGXcd"
     >
       <p
-        class="sc-bZQynM fraGhu sc-cMljjf gJcoJE"
+        class="sc-bZQynM fraGhu sc-jAaTju hYWMdF"
       >
-        ListPickerTitle
+        MessageTitle
       </p>
       <p
-        class="sc-bZQynM fraGhu sc-jAaTju bgMIgD"
+        class="sc-bZQynM fraGhu sc-jDwBTQ jVYcAQ"
       >
-        ListPickerSubTitle
+        MessageSubTitle
       </p>
     </div>
     <div
-      class="sc-iRbamj hDHmAu"
+      class="sc-jlyJG fUHAZN"
     >
       <div>
         <button
-          class="sc-gzVnrw fgSGc sc-gipzik gQQXrX"
+          class="sc-gzVnrw fgSGc sc-csuQGl Uiaxf"
           data-selected="false"
           type="default"
-          value="ListPickerElementTitle"
+          value="Button1Title"
         >
-          <div
-            class="sc-csuQGl kVNTPr"
-          >
-            <img
-              alt="ListPickerElementImageDescription"
-              class="sc-jDwBTQ kLyVEB"
-              src="ListPickerElementImageData"
-            />
-          </div>
           <div>
             <p
-              class="sc-bZQynM fraGhu sc-cMljjf gJcoJE"
+              class="sc-bZQynM fraGhu sc-jAaTju hYWMdF"
             >
-              ListPickerElementTitle
-            </p>
-            <p
-              class="sc-bZQynM fraGhu sc-jAaTju bgMIgD"
-            >
-              ListPickerElementSubtitle
+              Button1Title
             </p>
           </div>
         </button>
         <button
-          class="sc-gzVnrw fgSGc sc-gipzik gQQXrX"
+          class="sc-gzVnrw fgSGc sc-csuQGl Uiaxf"
           data-selected="false"
           type="default"
-          value="AnotherListPickerElementTitle"
+          value="Button2Title"
         >
-          <div
-            class="sc-csuQGl kVNTPr"
-          >
-            <img
-              alt="AnotherListPickerElementImageDescription"
-              class="sc-jDwBTQ kLyVEB"
-              src="AnotherListPickerElementImageData"
-            />
-          </div>
           <div>
             <p
-              class="sc-bZQynM fraGhu sc-cMljjf gJcoJE"
+              class="sc-bZQynM fraGhu sc-jAaTju hYWMdF"
             >
-              AnotherListPickerElementTitle
-            </p>
-            <p
-              class="sc-bZQynM fraGhu sc-jAaTju bgMIgD"
-            >
-              AnotherListPickerElementSubtitle
+              Button2Title
             </p>
           </div>
         </button>
