@@ -44,6 +44,7 @@ const mockImageWithButtonNoButtonContent = {
     imageDescription: "ImageDescription"
 };
 
+
  
 let mockImageWithButton;
 let mockProps;
@@ -80,6 +81,60 @@ test("Should be able to use ImageWithButton", () => {
     expect(mockProps.addMessage).toHaveBeenCalledTimes(1);
     expect(mockProps.addMessage).toHaveBeenCalledWith({text: "Button1Title"});
 });
+
+
+test("should not show Title if empty", () => {
+    const mockMessageWithNoTitle = {
+        subtitle: "MessageSubTitle",
+        elements: [],
+        imageData: "ImageData",
+        imageDescription: "ImageDescription"
+    };
+    const addMessage = jest.fn().mockResolvedValue(undefined);
+    mockProps = {content: mockMessageWithNoTitle, addMessage: addMessage};
+
+    renderElement(mockProps);
+ 
+    expect(mockImageWithButton.queryByText("MessageTitle")).toBeNull();
+});
+
+test("should not show Subtitle if empty", () => {
+    const mockMessageWithNoSubTitle = {
+        title: "MessageTitle",
+        elements: [],
+        imageData: "ImageData",
+        imageDescription: "ImageDescription"
+    };
+
+    const addMessage = jest.fn().mockResolvedValue(undefined);
+    mockProps = {content: mockMessageWithNoSubTitle, addMessage: addMessage};
+
+    renderElement(mockProps);
+ 
+    expect(mockImageWithButton.queryByText("MessageSubTitle")).toBeNull();
+});
+
+test("should render Button correctly", () => {
+    const mockMessageWithButton = {
+        title: "MessageTitle",
+        elements: [{title: "ButtonTitle", value: "ButtonValue"}],
+        imageData: "ImageData",
+        imageDescription: "ImageDescription"
+    };
+    const addMessage = jest.fn().mockResolvedValue(undefined);
+    mockProps = {content: mockMessageWithButton, addMessage: addMessage};
+
+    renderElement(mockProps);
+ 
+    expect(mockImageWithButton.getByText("Button1Title")).toBeDefined();
+ 
+    fireEvent.click(mockImageWithButton.getByText("Button1Title"));
+
+    expect(mockProps.addMessage).toHaveBeenCalledTimes(1);
+    expect(mockProps.addMessage).toHaveBeenCalledWith({text: "ButtonValue"});
+});
+
+
 
 test("should render without image if no image data passed in", () => {
     const addMessage = jest.fn().mockResolvedValue(undefined);

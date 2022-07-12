@@ -21,33 +21,27 @@ const ImageContainer = styled.div`
 `;
  
 const ButtonComponent = styled(Button)`
-  display: flex;
+  display: inline;
   justify-content: center;
-  width: 100%;
+  margin: 0 10px 10px 0;
   max-width: none;
   border: ${({ theme }) => theme.globals.baseBorder};  
   white-space: pre-line;
+  border-radius: ${({ theme }) => theme.spacing.mini};
  
   &:hover {
     background: ${({ theme }) => theme.color.primary};
   }
-  
-  &:last-of-type {
-    border-bottom-left-radius: ${({ theme }) => theme.spacing.mini};
-    border-bottom-right-radius: ${({ theme }) => theme.spacing.mini};
-    margin-bottom: 0;   
-  }
-  
+    
 `;
  
 function ButtonElement({ element, onClick }) {
-  const { title, subtitle } = element;
+  const { title, value } = element;
  
   return (
-    <ButtonComponent value={title}  onClick={onClick}>
+    <ButtonComponent value={value || title}  onClick={onClick}>
       <div>
         <Title>{title}</Title>
-        {subtitle && <Subtitle>{subtitle}</Subtitle>}
       </div>
     </ButtonComponent>
   );
@@ -73,16 +67,24 @@ export default function ImageWithButton({ content, addMessage }) {
  
   return (
     <>
-      {(imageData) &&
+      {title && 
+      <TextSection>
+        <Title>{title}</Title>
+      </TextSection>
+      }
+
+    {(imageData) &&
       <ImageContainer showImage={imageLoaded}>
         <ReactiveImage imageSrc={imageData} imageDescription={imageDescription} onImageLoad={onImageLoad}/>
       </ImageContainer>
-      }      
+    }      
 
+      {subtitle && 
       <TextSection>
-      <Title>{title}</Title>
-      {subtitle && <Subtitle>{subtitle}</Subtitle>}
-    </TextSection>
+        <Subtitle>{subtitle}</Subtitle>
+      </TextSection>
+      }
+
     <ResponsesSection>
       <div>
         {elements.map((button, index) =>
