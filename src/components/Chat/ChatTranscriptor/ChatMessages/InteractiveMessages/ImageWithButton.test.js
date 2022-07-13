@@ -126,9 +126,9 @@ test("should render Button correctly", () => {
 
     renderElement(mockProps);
  
-    expect(mockImageWithButton.getByText("Button1Title")).toBeDefined();
+    expect(mockImageWithButton.getByText("ButtonTitle")).toBeDefined();
  
-    fireEvent.click(mockImageWithButton.getByText("Button1Title"));
+    fireEvent.click(mockImageWithButton.getByText("ButtonTitle"));
 
     expect(mockProps.addMessage).toHaveBeenCalledTimes(1);
     expect(mockProps.addMessage).toHaveBeenCalledWith({text: "ButtonValue"});

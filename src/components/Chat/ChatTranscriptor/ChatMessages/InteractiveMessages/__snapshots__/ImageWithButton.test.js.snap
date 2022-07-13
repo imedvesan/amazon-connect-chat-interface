@@ -3,7 +3,7 @@
 exports[`Style should match the snapshot 1`] = `
 Object {
   "asFragment": [Function],
-  "baseElement": .c3 {
+  "baseElement": .c1 {
   font-size: 1em;
   line-height: 1.465;
   font-weight: normal;
@@ -13,7 +13,7 @@ Object {
   margin: 0;
 }
 
-.c3:last-child {
+.c1:last-child {
   margin: 0;
 }
 
@@ -112,7 +112,7 @@ Object {
   background: linear-gradient(#FFFFFF,#FFFFFF 80%,#FFFFFF);
 }
 
-.c4 {
+.c2 {
   font-weight: bold !important;
 }
 
@@ -120,13 +120,13 @@ Object {
   color: #555555;
 }
 
-.c1 {
+.c4 {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-.c2 {
+.c0 {
   padding: 14px;
   text-align: left;
 }
@@ -137,34 +137,27 @@ Object {
   border-radius: 6px;
 }
 
-.c0 {
+.c3 {
   max-height: calc(95vw * (9/16));
   overflow: hidden;
   display: none;
 }
 
 .c8 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
+  display: inline;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
+  margin: 0 10px 10px 0;
   max-width: none;
   border: 1px solid #DDDDDD;
   white-space: pre-line;
+  border-radius: 6px;
 }
 
 .c8:hover {
   background: #06adcb;
-}
-
-.c8:last-of-type {
-  border-bottom-left-radius: 6px;
-  border-bottom-right-radius: 6px;
-  margin-bottom: 0;
 }
 
 <body>
@@ -172,22 +165,26 @@ Object {
       <div
         class="c0"
       >
+        <p
+          class="c1 c2"
+        >
+          MessageTitle
+        </p>
+      </div>
+      <div
+        class="c3"
+      >
         <img
           alt="ImageDescription"
-          class="c1"
+          class="c4"
           src="ImageData"
         />
       </div>
       <div
-        class="c2"
+        class="c0"
       >
         <p
-          class="c3 c4"
-        >
-          MessageTitle
-        </p>
-        <p
-          class="c3 c5"
+          class="c1 c5"
         >
           MessageSubTitle
         </p>
@@ -204,7 +201,7 @@ Object {
           >
             <div>
               <p
-                class="c3 c4"
+                class="c1 c2"
               >
                 Button1Title
               </p>
@@ -218,7 +215,7 @@ Object {
           >
             <div>
               <p
-                class="c3 c4"
+                class="c1 c2"
               >
                 Button2Title
               </p>
@@ -229,6 +226,15 @@ Object {
     </div>
   </body>,
   "container": <div>
+    <div
+      class="sc-iRbamj hpGXcd"
+    >
+      <p
+        class="sc-bZQynM fraGhu sc-jAaTju hYWMdF"
+      >
+        MessageTitle
+      </p>
+    </div>
     <div
       class="sc-gipzik inmHgs"
     >
@@ -242,11 +248,6 @@ Object {
       class="sc-iRbamj hpGXcd"
     >
       <p
-        class="sc-bZQynM fraGhu sc-jAaTju hYWMdF"
-      >
-        MessageTitle
-      </p>
-      <p
         class="sc-bZQynM fraGhu sc-jDwBTQ jVYcAQ"
       >
         MessageSubTitle
@@ -257,7 +258,7 @@ Object {
     >
       <div>
         <button
-          class="sc-gzVnrw fgSGc sc-csuQGl Uiaxf"
+          class="sc-gzVnrw fgSGc sc-csuQGl gdWUTH"
           data-selected="false"
           type="default"
           value="Button1Title"
@@ -271,7 +272,7 @@ Object {
           </div>
         </button>
         <button
-          class="sc-gzVnrw fgSGc sc-csuQGl Uiaxf"
+          class="sc-gzVnrw fgSGc sc-csuQGl gdWUTH"
           data-selected="false"
           type="default"
           value="Button2Title"
