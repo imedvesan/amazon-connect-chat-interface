@@ -12,8 +12,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      ci: false
 
     strategy:
       matrix:
@@ -26,8 +24,8 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - run: npm ci
-    - run: npm run release
+    - run: CI=false npm ci
+    - run: CI=false npm run release
     - uses: actions/upload-artifact@v3
       with:
         name: amazon-connect-chat-interface.js
